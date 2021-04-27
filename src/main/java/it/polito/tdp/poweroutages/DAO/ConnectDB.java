@@ -24,7 +24,7 @@ public class ConnectDB {
 			HikariConfig config = new HikariConfig();
 			config.setJdbcUrl(jdbcURL);
 			config.setUsername("root");
-			config.setPassword("root");
+			config.setPassword("And13rea4");
 			
 			config.addDataSourceProperty("cachePrepStmts", true);
 			config.addDataSourceProperty("prepStmtChacheSize", 250);

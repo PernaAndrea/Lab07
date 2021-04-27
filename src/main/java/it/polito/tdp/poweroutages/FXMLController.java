@@ -39,6 +39,13 @@ public class FXMLController {
     @FXML
     void doRun(ActionEvent event) {
     	txtResult.clear();
+    	Integer y = Integer.parseInt(txtYears.getText());
+    	Integer h = Integer.parseInt(txtHours.getText());
+    	
+    	if(y!=null && h!=null) {
+    		
+    	}
+    	
     }
 
     @FXML // This method is called by the FXMLLoader when initialization is complete
@@ -51,8 +58,16 @@ public class FXMLController {
         // Utilizzare questo font per incolonnare correttamente i dati;
         txtResult.setStyle("-fx-font-family: monospace");
     }
+    public void setcmbNerc() {
+    	
+    	for(Nerc n : model.getNercList()) {
+    		cmbNerc.getItems().add(n);
+    	}
+    }
     
     public void setModel(Model model) {
     	this.model = model;
+    	setcmbNerc();
     }
+    
 }
