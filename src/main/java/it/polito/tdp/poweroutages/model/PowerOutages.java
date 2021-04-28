@@ -1,5 +1,6 @@
 package it.polito.tdp.poweroutages.model;
 
+import java.time.LocalDateTime;
 import java.util.Date;
 
 public class PowerOutages {
@@ -11,15 +12,15 @@ public class PowerOutages {
 	private int nerc_id;
 	private int responsible_id;
 	private int customers_affected;
-	private Date date_event_began;
-	private Date date_event_finished;
+	private LocalDateTime date_event_began;
+	private LocalDateTime date_event_finished;
 	private int demand_loss;
 	private int numberHours;
 	private int year;
 	
 	@SuppressWarnings("deprecation")
 	public PowerOutages(int id, int event_type_id, int tag_id, int area_id, int nerc_id, int responsible_id,
-			int customers_affected, Date date_event_began, Date date_event_finished, int demand_loss) {
+			int customers_affected, LocalDateTime date_event_began, LocalDateTime date_event_finished, int demand_loss) {
 		super();
 		this.id = id;
 		this.event_type_id = event_type_id;
@@ -32,7 +33,7 @@ public class PowerOutages {
 		this.date_event_finished = date_event_finished;
 		this.demand_loss = demand_loss;
 		this.year = date_event_began.getYear();
-		this.numberHours = date_event_finished.getHours()-date_event_began.getHours();
+		this.numberHours = date_event_finished.getHour()-date_event_began.getHour();
 	}
 
 	public int getId() {
@@ -59,19 +60,19 @@ public class PowerOutages {
 		this.customers_affected = customers_affected;
 	}
 
-	public Date getDate_event_began() {
+	public LocalDateTime getDate_event_began() {
 		return date_event_began;
 	}
 
-	public void setDate_event_began(Date date_event_began) {
+	public void setDate_event_began(LocalDateTime date_event_began) {
 		this.date_event_began = date_event_began;
 	}
 
-	public Date getDate_event_finished() {
+	public LocalDateTime getDate_event_finished() {
 		return date_event_finished;
 	}
 
-	public void setDate_event_finished(Date date_event_finished) {
+	public void setDate_event_finished(LocalDateTime date_event_finished) {
 		this.date_event_finished = date_event_finished;
 	}
 

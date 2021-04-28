@@ -41,9 +41,12 @@ public class FXMLController {
     	txtResult.clear();
     	Integer y = Integer.parseInt(txtYears.getText());
     	Integer h = Integer.parseInt(txtHours.getText());
+    	model.daiNerc(cmbNerc.getValue());
     	
     	if(y!=null && h!=null) {
-    		
+    		txtResult.setText(model.trovaSequenza(cmbNerc.getValue(), h, y));
+    	}else {
+    		txtResult.setText("Errore");
     	}
     	
     }
