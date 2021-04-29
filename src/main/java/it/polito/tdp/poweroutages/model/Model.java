@@ -16,6 +16,7 @@ public class Model {
 	private int personeMigliore;
 	private List<PowerOutages> poSelezionati;
 	Nerc selezionatoNerc ;
+	private List<PowerOutages> partenza;
 	
 	public Model() {
 		podao = new PowerOutageDAO();
@@ -36,13 +37,16 @@ public class Model {
 		return po;
 	}
 	
-	public String trovaSequenza(Nerc nerc,Integer yy,Integer xx) {
+	public String trovaSequenza(Nerc nerc,Integer ore,Integer anni) {
+		
 		List<PowerOutages> parziale = new ArrayList();
 		this.best = null;
+		personeMigliore = 0;
 		poSelezionati = new ArrayList<PowerOutages>(podao.getPowerOutagesperNerc(selezionatoNerc));
 		PowerOutageDAO dao = new PowerOutageDAO();
-		X=xx;
-		Y=yy;
+		partenza = this.podao.getPowerOutagesperNerc(nerc);
+		X=anni;
+		Y=ore;
 		// forse qualcosa quiiiii
 		String tot="";
 		
@@ -54,6 +58,9 @@ public class Model {
 		}
 		return tot;
 	}
+	/*
+	 * 
+	 * 
 	// CI METTE TROPPO , NON RIESCO A TROVARE UNA SOLUZIONE ....
 	public void cerca(List<PowerOutages> parziale, int livello) {
 		// CASO TERMINALE
@@ -73,27 +80,44 @@ public class Model {
 			}
 		}
 	}
+	
+	*/
 	public void cerca2(List<PowerOutages> parziale, int livello,int y) {
+		
 		int oreTotali = calcolaOre(parziale);
+		
 		if(oreTotali > y) {
 			return;
 		}
-		if(oreTotali == y) {
+		
 			int personeTotali = calcolaPersone(parziale);
 			if(personeTotali > personeMigliore) {
 				best = new ArrayList<PowerOutages>(parziale);
 				personeMigliore= personeTotali;
+			
+			return;
+		}
+		
+		if(livello == partenza.size()) {
+			return;
+		}else {
+			PowerOutages nuovoPo = partenza.get(livello);
+			if(parziale.size()==0||nuovoPo.getDate_event_finished().compareTo(parziale.get(0).getDate_event_began().plusYears(X))<=0) {
+				parziale.add(nuovoPo);
+				cerca2(parziale,livello+1,y);
+				parziale.remove(nuovoPo);
+				cerca2(parziale,livello+1,y);
+			}else {
+				return;
 			}
-			return;
 		}
-		if(livello == poSelezionati.size()) {
-			return;
-		}
+		/*
 		parziale.add(poSelezionati.get(livello));
 		cerca2(parziale,livello+poSelezionati.get(livello).getNumberHours(),y);
 		
 		parziale.remove(poSelezionati.get(livello));
 		cerca2(parziale,livello+poSelezionati.get(livello).getNumberHours(),y);
+		*/
 	}
 	
 	public boolean validaEvento(PowerOutages powerOutages , List<PowerOutages> parziale) {

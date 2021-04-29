@@ -33,7 +33,12 @@ public class PowerOutages {
 		this.date_event_finished = date_event_finished;
 		this.demand_loss = demand_loss;
 		this.year = date_event_began.getYear();
-		this.numberHours = date_event_finished.getHour()-date_event_began.getHour();
+		//this.numberHours = date_event_finished.getHour()-date_event_began.getHour();
+		if(date_event_finished.getDayOfMonth() == date_event_began.getDayOfMonth()) {
+			numberHours = date_event_finished.getHour() - date_event_began.getHour();
+		}else {
+			numberHours = (24-date_event_began.getHour()) + date_event_finished.getHour();
+		}
 	}
 
 	public int getId() {
@@ -116,9 +121,8 @@ public class PowerOutages {
 
 	@Override
 	public String toString() {
-		return "PowerOutages [customers_affected=" + customers_affected + ", date_event_began=" + date_event_began
-				+ ", date_event_finished=" + date_event_finished + ", numberHours=" + numberHours + ", year=" + year
-				+ "]";
+		return (year + " "+ date_event_began + " " +date_event_finished + " " +numberHours+" "+customers_affected);
+	
 	}
 
 	

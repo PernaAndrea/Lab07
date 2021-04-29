@@ -39,12 +39,13 @@ public class FXMLController {
     @FXML
     void doRun(ActionEvent event) {
     	txtResult.clear();
-    	Integer y = Integer.parseInt(txtYears.getText());
-    	Integer h = Integer.parseInt(txtHours.getText());
+    	Integer year = Integer.parseInt(txtYears.getText());
+    	Integer hour = Integer.parseInt(txtHours.getText());
+    	Nerc nercScelto = cmbNerc.getValue();
     	model.daiNerc(cmbNerc.getValue());
     	
-    	if(y!=null && h!=null) {
-    		txtResult.setText(model.trovaSequenza(cmbNerc.getValue(), h, y));
+    	if(year!=null && hour!=null) {
+    		txtResult.setText(model.trovaSequenza(cmbNerc.getValue(), hour, year));
     	}else {
     		txtResult.setText("Errore");
     	}
